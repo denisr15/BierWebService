@@ -17,10 +17,13 @@ public class Driver {
 
     public static void main(String[] args) throws IOException {
 
-        JSONParser parser = new JSONParser();
+    }
 
+    public static JSONArray getJSON(String link){
+        JSONParser parser = new JSONParser();
+        JSONArray data = null;
         try {
-            URL oracle = new URL("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff"); // URL to Parse
+            URL oracle = new URL(link); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
             JSONParser jsonParser = new JSONParser();
@@ -30,19 +33,7 @@ public class Driver {
                 Object obj = jsonParser.parse(inputLine);
                 JSONObject tutorials = (JSONObject) obj;
 
-                JSONArray data = (JSONArray) tutorials.get("data");
-
-                for (Object style : data) {
-                    JSONObject styleJSON = (JSONObject) style;
-
-                    long id = (long) styleJSON.get("id");
-                    System.out.println("ID : " + id);
-
-                    String name = (String) styleJSON.get("name");
-                    System.out.println("Name: " + name);
-                }
-
-                System.out.println("\n");
+                 data = (JSONArray) tutorials.get("data");
             }
             in.close();
         } catch (FileNotFoundException e) {
@@ -52,6 +43,6 @@ public class Driver {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        return data;
     }
 }

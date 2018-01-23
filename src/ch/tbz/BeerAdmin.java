@@ -1,5 +1,8 @@
 package ch.tbz;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,6 +25,29 @@ public class BeerAdmin {
         while ((inputLine = in.readLine()) != null)
         System.out.println(inputLine);
         in.close();
+    }
+
+    public void getBeerListForStyle(int idStyle){
+
+        JSONArray array = Driver.getJSON("http://api.brewerydb.com/v2/beers/?key=1511d0db4a1d6841481c672455358cff&styleId=" + idStyle);
+
+        // TODO: add to hashmap
+
+    }
+
+    public static void printBeerList(){
+        // TODO: url to static variable
+        for (Object style : Driver.getJSON("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff")) {
+            JSONObject styleJSON = (JSONObject) style;
+
+            long id = (long) styleJSON.get("id");
+            System.out.println("ID : " + id);
+
+            String name = (String) styleJSON.get("name");
+            System.out.println("Name: " + name);
+        }
+
+        System.out.println("\n");
     }
 
 

@@ -9,11 +9,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import static java.util.logging.Level.parse;
 
 
 public class Driver {
-
 
     public static void main(String[] args) throws IOException {
 

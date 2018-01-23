@@ -8,27 +8,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
 public class BeerAdmin {
-    private String apiKey = "";
-    private String urlString = "";
 
-    URL url = new URL("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff");
-    URLConnection yc = url.openConnection();
+    public HashMap<Long, String> loadBeerStyles(){
+        HashMap<Long, String> beerStyles = new HashMap<>();
+        JSONArray jsonArray = Driver.getJSON("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff");
+        for (Object style : jsonArray) {
+            JSONObject styleJSON = (JSONObject) style;
 
-    //test and show result as String:
-    BufferedReader in = new BufferedReader
-        (new InputStreamReader(yc.getInputStream()));
-    String inputLine;
+            long id = (long) styleJSON.get("id");
+            String name = (String) styleJSON.get("name");
 
-    public BeerAdmin() throws IOException {
-        while ((inputLine = in.readLine()) != null)
-        System.out.println(inputLine);
-        in.close();
+            beerStyles.put(id, name);
+        }
+        return beerStyles;
     }
 
     public void getBeerListForStyle(int idStyle){
-
         JSONArray array = Driver.getJSON("http://api.brewerydb.com/v2/beers/?key=1511d0db4a1d6841481c672455358cff&styleId=" + idStyle);
 
         // TODO: add to hashmap

@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 public class BeerAdmin {
 
-    public static final String BEER_URL = "http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff";
+    public static final String BEER_STYLES_URL = "http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff";
 
     public HashMap<Long, String> loadBeerStyles(){
         HashMap<Long, String> beerStyles = new HashMap<>();
-        JSONArray jsonArray = Driver.getJSON(BEER_URL);
+        JSONArray jsonArray = Driver.getJSON(BEER_STYLES_URL);
         for (Object style : jsonArray) {
             JSONObject styleJSON = (JSONObject) style;
 
@@ -46,7 +46,7 @@ public class BeerAdmin {
     }
 
     public void getBeerListForStyle(int idStyle){
-        JSONArray array = Driver.getJSON(BEER_URL + "&styleId=" + idStyle);
+        JSONArray array = Driver.getJSON(BEER_STYLES_URL + "&styleId=" + idStyle);
 
         // TODO: add to hashmap
 
@@ -54,7 +54,7 @@ public class BeerAdmin {
 
     public static void printBeerList(){
         // TODO: url to static variable
-        for (Object style : Driver.getJSON(BEER_URL)) {
+        for (Object style : Driver.getJSON(BEER_STYLES_URL)) {
             JSONObject styleJSON = (JSONObject) style;
 
             long id = (long) styleJSON.get("id");

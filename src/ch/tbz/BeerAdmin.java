@@ -3,18 +3,15 @@ package ch.tbz;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 
 public class BeerAdmin {
 
+    public static final String BEER_URL = "http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff";
+
     public HashMap<Long, String> loadBeerStyles(){
         HashMap<Long, String> beerStyles = new HashMap<>();
-        JSONArray jsonArray = Driver.getJSON("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff");
+        JSONArray jsonArray = Driver.getJSON(BEER_URL);
         for (Object style : jsonArray) {
             JSONObject styleJSON = (JSONObject) style;
 
@@ -26,8 +23,30 @@ public class BeerAdmin {
         return beerStyles;
     }
 
+    public void printBeerStyles(){
+        HashMap<Long, String> beerStyles = loadBeerStyles();
+
+        for(Long key : beerStyles.keySet()){
+            System.out.println("ID: " + key);
+            System.out.println("Style: " + beerStyles.get(key));
+            System.out.println("------------------------");
+        }
+    }
+
+    public void printBeerStyles(String search){
+        HashMap<Long, String> beerStyles = loadBeerStyles();
+
+        for(Long key : beerStyles.keySet()){
+            if(beerStyles.get(key).toLowerCase().contains(search.toLowerCase())){
+                System.out.println("ID: " + key);
+                System.out.println("Style: " + beerStyles.get(key));
+                System.out.println("------------------------");
+            }
+        }
+    }
+
     public void getBeerListForStyle(int idStyle){
-        JSONArray array = Driver.getJSON("http://api.brewerydb.com/v2/beers/?key=1511d0db4a1d6841481c672455358cff&styleId=" + idStyle);
+        JSONArray array = Driver.getJSON(BEER_URL + "&styleId=" + idStyle);
 
         // TODO: add to hashmap
 
@@ -35,7 +54,7 @@ public class BeerAdmin {
 
     public static void printBeerList(){
         // TODO: url to static variable
-        for (Object style : Driver.getJSON("http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff")) {
+        for (Object style : Driver.getJSON(BEER_URL)) {
             JSONObject styleJSON = (JSONObject) style;
 
             long id = (long) styleJSON.get("id");

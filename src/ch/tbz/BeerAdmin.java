@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 public class BeerAdmin {
 
-    private HashMap<Long, String> beerStyles = null;
+    private HashMap<Long, String> beerStyles = new HashMap<Long, String>();
 
     public static final String BEER_STYLES_URL = "http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff";
 
-    public HashMap<Long, String> loadBeerStyles(){
+    public void loadBeerStyles(){
 
         JSONArray jsonArray = Driver.getJSON(BEER_STYLES_URL);
         for (Object style : jsonArray) {
@@ -22,11 +22,9 @@ public class BeerAdmin {
 
             beerStyles.put(id, name);
         }
-        return beerStyles;
     }
 
     public void printBeerStyles(){
-        HashMap<Long, String> beerStyles = loadBeerStyles();
 
         for(Long key : beerStyles.keySet()){
             System.out.println("ID: " + key);
@@ -36,7 +34,6 @@ public class BeerAdmin {
     }
 
     public void printBeerStyles(String search){
-        HashMap<Long, String> beerStyles = loadBeerStyles();
 
         for(Long key : beerStyles.keySet()){
             if(beerStyles.get(key).toLowerCase().contains(search.toLowerCase())){

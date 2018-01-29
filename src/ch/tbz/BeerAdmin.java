@@ -7,10 +7,12 @@ import java.util.HashMap;
 
 public class BeerAdmin {
 
+    private HashMap<Long, String> beerStyles = null;
+
     public static final String BEER_STYLES_URL = "http://api.brewerydb.com/v2/styles?key=1511d0db4a1d6841481c672455358cff";
 
     public HashMap<Long, String> loadBeerStyles(){
-        HashMap<Long, String> beerStyles = new HashMap<>();
+
         JSONArray jsonArray = Driver.getJSON(BEER_STYLES_URL);
         for (Object style : jsonArray) {
             JSONObject styleJSON = (JSONObject) style;

@@ -4,7 +4,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BeerAdmin {
 
@@ -16,15 +18,7 @@ public class BeerAdmin {
 
     private HashMap<Long, String> styles = new HashMap<>();
 
-    private HashMap<String, String> beers = new HashMap<>();
-
-    public HashMap<Long, String> getStyles() {
-        return styles;
-    }
-
-    /*public HashMap<Long, String> getBeers() {
-        return beers;
-    }*/
+    private List<Beer> beers = new ArrayList<>();
 
     public void loadBeerStyles(){
         JSONArray jsonArray = Driver.getJSON(STYLES_URL);
@@ -39,7 +33,6 @@ public class BeerAdmin {
     }
 
     public void printBeerStyles(){
-
         for(Long key : styles.keySet()){
             System.out.println("ID: " + key);
             System.out.println("Style: " + styles.get(key));
@@ -48,7 +41,6 @@ public class BeerAdmin {
     }
 
     public void printBeerStyles(String search){
-
         for(Long key : styles.keySet()){
             if(styles.get(key).toLowerCase().contains(search.toLowerCase())){
                 System.out.println("ID: " + key);
@@ -59,19 +51,19 @@ public class BeerAdmin {
     }
 
     public void printBeerList(){
-        for(String key : beers.keySet()){
-                System.out.println("ID: " + key);
-                System.out.println("Beer: " + beers.get(key));
-                System.out.println("------------------------");
+        for(Beer beer : beers){
+            System.out.println("ID: " + beer.getId());
+            System.out.println("Beer: " + beer.getName());
+            System.out.println("------------------------");
         }
     }
 
     public void printBeer(String id){
-        for (String key: beers.keySet()){
-            if(beers.get(key).equals(id)){
-                System.out.println("ID: " + key);
-                System.out.println("Beer: " + beers.get(key));
-                System.out.println("------------------------");
+        for (Beer beer: beers){
+            if(beer.equals(id)){
+                System.out.println("ID: " + beer.getId());
+                System.out.println("Beer: " + beer.getName());
+                System.out.println("Description: " + beer.getDescription());
                 break;
             }
         }
@@ -80,10 +72,15 @@ public class BeerAdmin {
     public void getBeerListForStyle(int styleId) {
         for (Object style : Driver.getJSON(BEERS_URL + styleId)) {
             JSONObject styleJSON = (JSONObject) style;
-            String id = (String) styleJSON.get("id");
-            String name = (String) styleJSON.get("name");
 
-            beers.put(id, name);
+            String id = (String) styleJSON.get("id");
+
+            String name = (String) styleJSON.get("name");
+            String description = (String) styleJSON.get("description");
+            Long idstyle = (Long) styleJSON.get("styleId");
+
+            Beer beer = new Beer(id, name, description, idstyle);
+            beers.add(beer);
         }
     }
 }

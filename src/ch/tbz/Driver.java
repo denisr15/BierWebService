@@ -15,10 +15,12 @@ public class Driver {
     public static void main(String[] args) throws IOException {
         BeerAdmin admin = new BeerAdmin();
 
-        admin.getBeerListForStyle(1);
-        //admin.printBeerList();
+        admin.loadBeerStyles();
 
-        admin.printBeer("lAJTKL");
+        System.out.println("|1| Alle Styles ausgeben|");
+        System.out.println("|2| Nach einem Style suchen|");
+        System.out.println("|3| Alle Biere von einem Style ausgeben|");
+        System.out.println("|4| Alle Biere von einem Style laden|");
     }
 
     public static JSONArray getJSON(String link){

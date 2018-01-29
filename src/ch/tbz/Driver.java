@@ -13,7 +13,12 @@ import org.json.simple.parser.ParseException;
 public class Driver {
 
     public static void main(String[] args) throws IOException {
+        BeerAdmin admin = new BeerAdmin();
 
+        admin.getBeerListForStyle(1);
+        //admin.printBeerList();
+
+        admin.printBeer("lAJTKL");
     }
 
     public static JSONArray getJSON(String link){

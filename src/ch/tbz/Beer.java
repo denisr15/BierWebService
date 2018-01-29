@@ -25,24 +25,4 @@ public class Beer {
         return description;
     }
 
-    public Long getIdStyle() {
-        return idStyle;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setIdStyle(Long idStyle) {
-        this.idStyle = idStyle;
-    }
-
 }

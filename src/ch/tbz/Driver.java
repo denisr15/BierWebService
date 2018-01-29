@@ -40,10 +40,12 @@ public class Driver {
 
             admin.getBeerListForStyle(Integer.parseInt(id));
             admin.printBeerList();
+
         } else if(input.equals("4")){
             admin.printBeerList();
+        } else {
+            System.out.println("Ungültige Eingabe");
         }
-
     }
 
     public static JSONArray getJSON(String link){

@@ -17,35 +17,43 @@ public class Driver {
         BeerAdmin admin = new BeerAdmin();
         Scanner sc = new Scanner(System.in);
 
+        boolean end = false;
+
         admin.loadBeerStyles();
 
-        System.out.println("-----------------------------------------");
-        System.out.println("|1| Alle Styles ausgeben                 |");
-        System.out.println("|2| Nach einem Style suchen              |");
-        System.out.println("|3| Alle Biere von einem Style ausgeben  |");
-        System.out.println("|4| Alle geladenen Biere ausgeben        |");
-        System.out.println("-----------------------------------------");
+        while (!end){
+            System.out.println("-----------------------------------------");
+            System.out.println("|1| Alle Styles ausgeben                 |");
+            System.out.println("|2| Nach einem Style suchen              |");
+            System.out.println("|3| Alle Biere von einem Style ausgeben  |");
+            System.out.println("|4| Alle geladenen Biere ausgeben        |");
+            System.out.println("|5| Beenden                              |");
+            System.out.println("-----------------------------------------");
 
-        String input = sc.next();
+            String input = sc.next();
 
-        if(input.equals("1")){
-            admin.printBeerStyles();
-        } else if(input.equals("2")){
-            System.out.println("Geben sie ein Suchwort ein: ");
-            String search = sc.next();
-            admin.printBeerStyles(search);
-        } else if(input.equals("3")){
-            System.out.println("Geben sie eine Style ID ein: ");
-            String id = sc.next();
+            if(input.equals("1")){
+                admin.printBeerStyles();
+            } else if(input.equals("2")){
+                System.out.println("Geben sie ein Suchwort ein: ");
+                String search = sc.next();
+                admin.printBeerStyles(search);
+            } else if(input.equals("3")){
+                System.out.println("Geben sie eine Style ID ein: ");
+                String id = sc.next();
 
-            admin.getBeerListForStyle(Integer.parseInt(id));
-            admin.printBeerList();
+                admin.getBeerListForStyle(Integer.parseInt(id));
+                admin.printBeerList();
 
-        } else if(input.equals("4")){
-            admin.printBeerList();
-        } else {
-            System.out.println("Ungültige Eingabe");
+            } else if(input.equals("4")){
+                admin.printBeerList();
+            } else if(input.equals("5")){
+                end = true;
+            } else {
+                System.out.println("Ungültige Eingabe");
+            }
         }
+
     }
 
     public static JSONArray getJSON(String link){

@@ -12,9 +12,9 @@ public class BeerAdmin {
 
     private static final String API_KEY = "?key=1511d0db4a1d6841481c672455358cff";
 
-    private static final String BASE_URL = "http://api.brewerydb.com/v2";
-    private static final String STYLES_URL = BASE_URL + "/styles" + API_KEY;
-    private static final String BEERS_URL = BASE_URL + "/beers" + API_KEY + "&styleId=";
+    private static final String DEFAULT_URL = "http://api.brewerydb.com/v2";
+    private static final String STYLES_URL = DEFAULT_URL + "/styles" + API_KEY;
+    private static final String BEER_URL = DEFAULT_URL + "/beers" + API_KEY + "&styleId=";
 
     private HashMap<Long, String> styles = new HashMap<>();
 
@@ -70,7 +70,7 @@ public class BeerAdmin {
     }
 
     public void getBeerListForStyle(int styleId) {
-        for (Object style : Driver.getJSON(BEERS_URL + styleId)) {
+        for (Object style : Driver.getJSON(BEER_URL + styleId)) {
             JSONObject styleJSON = (JSONObject) style;
 
             String id = (String) styleJSON.get("id");

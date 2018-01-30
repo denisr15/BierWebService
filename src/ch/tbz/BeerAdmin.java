@@ -16,8 +16,10 @@ public class BeerAdmin {
     private static final String STYLES_URL = DEFAULT_URL + "/styles" + API_KEY;
     private static final String BEER_URL = DEFAULT_URL + "/beers" + API_KEY + "&styleId=";
 
+    // in the String of the HashMap is the name of the style saved
     private HashMap<Long, String> styles = new HashMap<>();
 
+    // List because we dont need the id as a key (like in a HashMap)
     private List<Beer> beers = new ArrayList<>();
 
     public void loadBeerStyles(){
@@ -32,6 +34,7 @@ public class BeerAdmin {
         }
     }
 
+    // print "style" is every where the same
     public void printBeerStyles(){
         for(Long key : styles.keySet()){
             System.out.println("ID: " + key);
@@ -40,6 +43,7 @@ public class BeerAdmin {
         }
     }
 
+    // print "style" is every where the same
     public void printBeerStyles(String search){
         for(Long key : styles.keySet()){
             if(styles.get(key).toLowerCase().contains(search.toLowerCase())){
@@ -50,6 +54,7 @@ public class BeerAdmin {
         }
     }
 
+    // print "style" is every where the same
     public void printBeerList(){
         for(Beer beer : beers){
             System.out.println("ID: " + beer.getId());
@@ -57,7 +62,9 @@ public class BeerAdmin {
             System.out.println("------------------------");
         }
     }
-
+    
+    // print "style" is every where the same
+    // print one beer, equals the id, id is a String because, the id is like [ AFVZ12 ]
     public void printBeer(String id){
         for (Beer beer: beers){
             if(beer.equals(id)){
@@ -69,6 +76,8 @@ public class BeerAdmin {
         }
     }
 
+    // print "style" is every where the same
+    // add all beers from one style to the beer list, ( beer is also a class )
     public void getBeerListForStyle(int styleId) {
         for (Object style : Driver.getJSON(BEER_URL + styleId)) {
             JSONObject styleJSON = (JSONObject) style;

@@ -11,6 +11,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
+// !! Library link: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/json-simple/json-simple-1.1.1.jar
+
 public class Driver {
 
     public static void main(String[] args) throws IOException {
@@ -20,7 +22,8 @@ public class Driver {
         boolean end = false;
 
         admin.loadBeerStyles();
-
+        
+        // user menu
         while (!end){
             System.out.println("-----------------------------------------");
             System.out.println("|1| Alle Styles ausgeben                 |");
@@ -56,6 +59,11 @@ public class Driver {
 
     }
 
+    // get JSON function is used alot
+    // here the JSON simple library is used from googlecode
+    // url in a String as argument, where the JSON location is
+    // JSONArray is used later
+    // we dont need a JSONObject
     public static JSONArray getJSON(String link){
         JSONParser parser = new JSONParser();
         JSONArray data = null;
@@ -73,10 +81,13 @@ public class Driver {
                 data = (JSONArray) tutorials.get("data");
             }
             in.close();
+            
+        // if JSON s are corrupt, maybe also other version of JSON
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        // if the url is not a JSON file
         } catch (ParseException e) {
             e.printStackTrace();
         }
